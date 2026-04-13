@@ -307,6 +307,7 @@ MCP Client can access the following tools to interact with Windows:
 - `App`: To launch an application from the start menu, resize or move the window and switch between apps.
 - `Shell`: To execute PowerShell commands.
 - `Scrape`: To scrape the entire webpage for information.
+- `PlaySound`: Play a WAV audio file (default: Windows notify sound). Supports async playback, looping, and stopping.
 
 ## 🤝 Connect with Us
 Stay updated and join our community:

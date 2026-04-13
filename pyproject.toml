@@ -1,6 +1,6 @@
 [project]
 name = "windows-mcp"
-version = "0.6.2"
+version = "0.6.3"
 description = "Lightweight MCP Server for interacting with Windows Operating System."
 authors = [
     { name = "Jeomon George", email = "jeogeoalukka@gmail.com" }
