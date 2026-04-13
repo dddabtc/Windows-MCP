@@ -278,6 +278,28 @@ def scrape_tool(url:str,use_dom:bool|str=False, ctx: Context = None)->str:
     return f'URL:{url}\nContent:\n{header_status}\n{content}\n{footer_status}'
 
 @mcp.tool(
+    name='PlaySound',
+    description="Plays a WAV audio file. Default plays Windows notify sound. Set is_async=True to play without blocking. Set is_loop=True to loop continuously (requires is_async=True). Call with stop=True to stop any currently looping sound.",
+    annotations=ToolAnnotations(
+        title="PlaySound",
+        readOnlyHint=False,
+        destructiveHint=False,
+        idempotentHint=False,
+        openWorldHint=False
+    )
+)
+@with_analytics(analytics, "PlaySound-Tool")
+def playsound_tool(file_path:str=r'C:\Windows\Media\notify.wav', is_async:bool|str=False, is_loop:bool|str=False, stop:bool|str=False, ctx: Context = None)->str:
+    stop = stop is True or (isinstance(stop, str) and stop.lower() == 'true')
+    is_async = is_async is True or (isinstance(is_async, str) and is_async.lower() == 'true')
+    is_loop = is_loop is True or (isinstance(is_loop, str) and is_loop.lower() == 'true')
+    if stop:
+        success = desktop.stop_sound()
+        return 'Sound stopped.' if success else 'Failed to stop sound.'
+    success = desktop.play_sound(file_path=file_path, is_async=is_async, is_loop=is_loop)
+    return f'Playing {file_path}.' if success else f'Failed to play {file_path}.'
+
+@mcp.tool(
     name='MultiSelect',
     description="Selects multiple items such as files, folders, or checkboxes if press_ctrl=True, or performs multiple clicks if False.",
     annotations=ToolAnnotations(

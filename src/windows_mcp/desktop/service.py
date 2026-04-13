@@ -716,6 +716,12 @@ class Desktop:
             executor.map(draw_annotation, range(len(nodes)), nodes)
         return padded_screenshot
     
+    def play_sound(self, file_path: str = r'C:\Windows\Media\notify.wav', is_async: bool = False, is_loop: bool = False) -> bool:
+        return uia.PlayWaveFile(filePath=file_path, isAsync=is_async, isLoop=is_loop)
+
+    def stop_sound(self) -> bool:
+        return uia.PlayWaveFile(filePath='')
+
     @contextmanager
     def auto_minimize(self):
         try:
